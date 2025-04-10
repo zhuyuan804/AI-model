@@ -42,16 +42,16 @@ GENE_LIST = ['DEFA4', 'CRISP3', 'EPHB1', 'ARG2', 'SESN3', 'IRAK3', 'CEACAM8', 'M
 @st.cache_data
 def load_background_data():
     try:
-        df = pd.read_excel('data/train_top10.xlsx')
+        df = pd.read_excel('heyuexian/data/train_top10.xlsx')
         return df[GENE_LIST]
     except FileNotFoundError:
-        st.error("Background data file 'data/train_top10.xlsx' not found.")
+        st.error("Background data file 'heyuexian/data/train_top10.xlsx' not found.")
         return pd.DataFrame(columns=GENE_LIST)
 
 @st.cache_resource
 def load_model():
     try:
-        return tf.keras.models.load_model('data/MODEL_2024_12_24_18_52_36.h5')
+        return tf.keras.models.load_model('heyuexian/data/MODEL_2024_12_24_18_52_36.h5')
     except Exception as e:
         st.error(f"Failed to load model: {str(e)}")
         return None
