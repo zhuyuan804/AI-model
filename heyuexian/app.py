@@ -77,7 +77,7 @@ def initialize_session_state():
         st.session_state.gene_values = DEFAULT_VALUES.copy()
 
 # Main UI
-st.title("🩺 Sepsis Gene Expression Prediction Model")
+st.title("🩺 Sepsis Risk Prediction Model")
 st.markdown("""
     This tool predicts sepsis probability using transcriptome data of 10 key genes, 
     with SHAP visualizations for interpretable insights. Adjust gene expression 
