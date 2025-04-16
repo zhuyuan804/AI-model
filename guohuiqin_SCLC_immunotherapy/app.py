@@ -5,6 +5,11 @@ import shap
 import tensorflow as tf
 import matplotlib.pyplot as plt
 from matplotlib import rcParams
+import os
+import warnings
+
+# Suppress TensorFlow deprecated warnings (optional)
+warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 # Configure matplotlib for better visualization
 rcParams['font.family'] = 'sans-serif'
@@ -41,21 +46,41 @@ st.markdown("""
 # Load and prepare background data
 @st.cache_data
 def load_background_data():
-    df = pd.read_excel('guohuiqin_SCLC_immunotherapy/data/train_5.xlsx')
-    return df[['C7', 'SIX1', 'MICA', 'CXCL8', 'PPBP']]
+    # Get the absolute path to the data file
+    base_path = os.path.dirname(os.path.abspath(__file__))
+    data_path = os.path.join(base_path, 'guohuiqin_SCLC_immunotherapy','data', 'train_5.xlsx')
+    df = pd.read_excel(data_path)
+    return df[['JAG2', 'PLAU', 'CXCL2', 'TNC', 'FGF6']]
 
 # Load the pre-trained model
 @st.cache_resource
 def load_model():
-    return tf.keras.models.load_model('guohuiqin_SCLC_immunotherapy/data/MODEL_2025_01_22_21_50_16.h5')
+    # Get the absolute path to the model file
+    base_path = os.path.dirname(os.path.abspath(__file__))
+    model_path = os.path.join(base_path, 'guohuiqin_SCLC_immunotherapy','data', 'MODEL_2025_04_15_19_41_16.h5')
+    try:
+        return tf.keras.models.load_model(model_path)
+    except Exception as e:
+        raise FileNotFoundError(f"Failed to load model from {model_path}. Error: {str(e)}")
 
 # Initialize data and model
-background_data = load_background_data()
-model = load_model()
+try:
+    background_data = load_background_data()
+    model = load_model()
+except FileNotFoundError as e:
+    st.error(str(e))
+    st.stop()
+except Exception as e:
+    st.error(f"An unexpected error occurred: {str(e)}")
+    st.stop()
 
 # Default values for genes
 default_values = {
-    'C7': 15.0, 'SIX1': 25.8, 'MICA': 8.66, 'CXCL8': 14.1, 'PPBP': 11.8
+    'JAG2': 24.81,
+    'PLAU': 22.00,
+    'CXCL2': 30.52,
+    'TNC': 26.0,
+    'FGF6': 19.58
 }
 
 # Sidebar configuration
@@ -153,4 +178,4 @@ with st.expander("ℹ️ About This Model and SHAP Visualizations", expanded=Tru
 
 # Footer
 st.markdown("---")
-st.markdown(f"Generated on: March 23, 2025 | Powered by xAI")
+st.markdown(f"Generated on: April 16, 2025 | Powered by xAI")
