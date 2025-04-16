@@ -48,7 +48,7 @@ st.markdown("""
 def load_background_data():
     # Get the absolute path to the data file
     base_path = os.path.dirname(os.path.abspath(__file__))
-    data_path = os.path.join(base_path, 'guohuiqin_SCLC_immunotherapy','data', 'train_5.xlsx')
+    data_path = os.path.join(base_path, 'data', 'train_5.xlsx')
     df = pd.read_excel(data_path)
     return df[['JAG2', 'PLAU', 'CXCL2', 'TNC', 'FGF6']]
 
@@ -57,7 +57,7 @@ def load_background_data():
 def load_model():
     # Get the absolute path to the model file
     base_path = os.path.dirname(os.path.abspath(__file__))
-    model_path = os.path.join(base_path, 'guohuiqin_SCLC_immunotherapy','data', 'MODEL_2025_04_15_19_41_16.h5')
+    model_path = os.path.join(base_path, 'data', 'MODEL_2025_04_15_19_41_16.h5')
     try:
         return tf.keras.models.load_model(model_path)
     except Exception as e:
