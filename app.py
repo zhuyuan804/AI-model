@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 st.set_page_config(page_title="Small Cell Lung Cancer Risk Prediction", layout="wide")
 
 # Title
-st.title("Small Cell Lung Cancer Gene Prediction Model - SHAP Visualization")
+st.title("Small Cell Lung Cancer Risk Prediction")
 
 # Load and prepare background data
 @st.cache_data
