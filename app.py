@@ -6,7 +6,7 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 
 # Set page config
-st.set_page_config(page_title="SCLC Gene Prediction SHAP Visualization", layout="wide")
+st.set_page_config(page_title="Small Cell Lung Cancer Risk Prediction", layout="wide")
 
 # Title
 st.title("Small Cell Lung Cancer Gene Prediction Model - SHAP Visualization")
